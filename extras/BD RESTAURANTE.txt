@@ -1,0 +1,100 @@
+CREATE TABLE roles (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    rol varchar (20) ,
+    creado datetime,
+    modificado datetime 
+
+);
+
+
+
+
+CREATE TABLE usuario (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    nombres varchar (100),
+    apellidos varchar (100),
+    email varchar (100),
+    telefono varchar (15),
+    contraseña varchar (255), 
+    roles_id int (11), 
+    FOREIGN KEY (roles_id) REFERENCES roles (id)
+    
+
+);
+
+
+CREATE TABLE platillo (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    
+    nombre_platillo varchar (100),
+    detalle varchar (100),
+    photo varchar (255),
+    photo_dir varchar (255),
+    precio float
+    
+
+);
+
+CREATE TABLE mesa (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    
+    capacidad_personas  int (5),
+    numero_mesa int (5),
+    detalle varchar (100)
+  
+
+);
+
+
+CREATE TABLE menu (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    
+    fecha varchar (15),
+    disponible boolean,
+    categoria varchar (50),
+    platillo_id int (11),
+    FOREIGN KEY (platillo_id) REFERENCES platillo (id)
+    
+  
+
+);
+
+CREATE TABLE pedido (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    
+    estado_pedido boolean ,
+    fecha_pedido varchar (15),
+    observacion varchar (50),
+    usuario_id int (11),
+    FOREIGN KEY (usuario_id) REFERENCES usuario (id)
+    
+  
+
+);
+
+
+CREATE TABLE detalle_pedido (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    
+    cantidad_pediso int (5) ,
+    valor_unitario float ,
+    valor_total float,
+    iva float ,
+    menu_id int (11),
+    mesa_id int (11),
+    pedido_id int (11),
+    FOREIGN KEY (mesa_id) REFERENCES mesa (id),
+    FOREIGN KEY (menu_id) REFERENCES menu (id),
+    FOREIGN KEY (pedido_id) REFERENCES pedido (id)
+    
+);
+
+CREATE TABLE calificacion (
+id int (11) PRIMARY KEY AUTO_INCREMENT ,
+    
+    valor int  (5) ,
+    comentario varchar (100) ,
+    pedido_id int (11),
+    FOREIGN KEY (pedido_id) REFERENCES pedido (id)
+    
+);
